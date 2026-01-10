@@ -28,4 +28,23 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  sessions:
+    new:
+      title: "Sign in"
+      email_placeholder: "Enter your email address"
+      password_placeholder: "Enter your password"
+      submit: "Sign in"
+      forgot_password: "Forgot password?"
+      no_account: "Don't have an account?"
+      sign_up: "Sign up"
+  registrations:
+    new:
+      title: "Sign up"
+      email_placeholder: "Enter your email address"
+      password_placeholder: "Create a password"
+      password_confirmation_placeholder: "Confirm your password"
+      submit: "Sign up"
+      already_have_account: "Already have an account?"
+      sign_in: "Sign in"
+    create:
+      success: "Welcome! Your account has been created."
