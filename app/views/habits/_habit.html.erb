@@ -2,41 +2,40 @@
   <% today = Date.current %>
   <% completion = habit.completion_for(today) %>
 
-  <div class="flex items-center justify-between p-4 bg-white rounded-lg shadow border-l-4" style="border-left-color: <%= habit.color %>;">
+  <div class="group flex items-center justify-between p-4 bg-surface-1 border border-border hover:border-border-light rounded-xl transition-colors">
     <div class="flex items-center gap-4">
+      <div class="w-1 h-10 rounded-full" style="background-color: <%= habit.color %>;"></div>
       <div>
-        <h3 class="font-semibold text-lg"><%= habit.name %></h3>
-        <% if habit.description.present? %>
-          <p class="text-gray-500 text-sm"><%= habit.description %></p>
-        <% end %>
-        <p class="text-gray-400 text-xs mt-1">
-          <%= Habit.human_attribute_name("frequency.#{habit.frequency}") %>
+        <div class="flex items-center gap-3">
+          <h3 class="font-medium"><%= habit.name %></h3>
           <% if habit.current_streak > 0 %>
-            <span class="ml-2 text-orange-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 inline" viewBox="0 0 20 20" fill="currentColor">
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-orange-500/10 text-orange-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd" />
               </svg>
-              <%= t("habits.habit.streak", count: habit.current_streak) %>
+              <%= habit.current_streak %>
             </span>
           <% end %>
-        </p>
+        </div>
+        <p class="text-sm text-muted mt-0.5"><%= Habit.human_attribute_name("frequency.#{habit.frequency}") %></p>
       </div>
     </div>
 
     <div class="flex items-center gap-3">
       <%= render "shared/check_in_buttons", habit: habit, date: today, completion: completion %>
 
-      <%= link_to habit_path(habit), class: "text-gray-400 hover:text-gray-600 ml-2" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-          <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-        </svg>
-      <% end %>
-      <%= link_to edit_habit_path(habit), class: "text-gray-400 hover:text-gray-600" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-        </svg>
-      <% end %>
+      <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+        <%= link_to edit_habit_path(habit), class: "p-2 text-muted hover:text-white hover:bg-surface-3 rounded-lg transition-colors" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+          </svg>
+        <% end %>
+        <%= link_to habit_path(habit), class: "p-2 text-muted hover:text-white hover:bg-surface-3 rounded-lg transition-colors" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+          </svg>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>

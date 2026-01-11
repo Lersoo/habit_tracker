@@ -28,22 +28,29 @@
 #       enabled: "ON"
 
 en:
+  app_name: "Streaks"
+  nav:
+    habits: "Habits"
+    statistics: "Statistics"
+    sign_out: "Sign out"
   sessions:
     new:
-      title: "Sign in"
-      email_placeholder: "Enter your email address"
-      password_placeholder: "Enter your password"
+      title: "Welcome back"
+      subtitle: "Sign in to continue tracking your habits"
+      email_placeholder: "Email address"
+      password_placeholder: "Password"
       submit: "Sign in"
       forgot_password: "Forgot password?"
       no_account: "Don't have an account?"
       sign_up: "Sign up"
   registrations:
     new:
-      title: "Sign up"
-      email_placeholder: "Enter your email address"
-      password_placeholder: "Create a password"
-      password_confirmation_placeholder: "Confirm your password"
-      submit: "Sign up"
+      title: "Create an account"
+      subtitle: "Start building better habits today"
+      email_placeholder: "Email address"
+      password_placeholder: "Password"
+      password_confirmation_placeholder: "Confirm password"
+      submit: "Create account"
       already_have_account: "Already have an account?"
       sign_in: "Sign in"
     create:
@@ -51,30 +58,41 @@ en:
   habits:
     index:
       title: "My Habits"
+      subtitle: "Track your daily progress"
       new_habit: "New Habit"
-      view_archived: "View Archived"
-      statistics: "Statistics"
-      no_habits: "No habits yet. Create your first habit to get started!"
+      empty_title: "No habits yet"
+      empty_description: "Create your first habit to start building better routines."
+      create_first: "Create your first habit"
     habit:
       streak:
         one: "%{count} day streak"
         other: "%{count} day streak"
     archived:
       title: "Archived Habits"
-      back_to_active: "Back to Active"
+      subtitle: "Habits you've put on hold"
+      back_to_active: "Back to active"
       no_habits: "No archived habits."
+      restore: "Restore"
+      delete: "Delete"
+      delete_confirm: "Are you sure you want to permanently delete this habit?"
     new:
       title: "New Habit"
+      subtitle: "Build a new routine"
     edit:
       title: "Edit Habit"
+      subtitle: "Update your habit details"
     show:
       title: "Habit Details"
       edit: "Edit"
       archive: "Archive"
-      unarchive: "Unarchive"
+      unarchive: "Restore"
       delete: "Delete"
       delete_confirm: "Are you sure you want to delete this habit? This will also delete all completion history."
       back_to_habits: "Back to habits"
+      current_streak: "Current Streak"
+      longest_streak: "Longest Streak"
+      completion_rate: "30-Day Rate"
+      days: "days"
     form:
       name_label: "Name"
       name_placeholder: "e.g., Exercise, Meditate, Read"
@@ -101,6 +119,7 @@ en:
   statistics:
     index:
       title: "Statistics"
+      subtitle: "Track your progress over time"
       overview: "Overview"
       total_habits: "Total Active Habits"
       total_completions: "Total Completions"

@@ -1,36 +1,44 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <% if alert = flash[:alert] %>
-    <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block" id="alert"><%= alert %></p>
-  <% end %>
-
-  <% if notice = flash[:notice] %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-  <h1 class="font-bold text-4xl"><%= t(".title") %></h1>
-
-  <%= form_with url: session_url, class: "contents" do |form| %>
-    <div class="my-5">
-      <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: t(".email_placeholder"), value: params[:email_address], class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+<div class="w-full max-w-sm">
+  <div class="text-center mb-8">
+    <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-accent/10 mb-4">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-accent" viewBox="0 0 24 24" fill="currentColor">
+        <path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 011.925-3.545 3.75 3.75 0 013.255 3.717z" clip-rule="evenodd" />
+      </svg>
     </div>
+    <h1 class="text-2xl font-semibold tracking-tight"><%= t(".title") %></h1>
+    <p class="text-subtle text-sm mt-1"><%= t(".subtitle") %></p>
+  </div>
 
-    <div class="my-5">
-      <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder"), maxlength: 72, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
-    </div>
-
-    <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-      <div class="inline">
-        <%= form.submit t(".submit"), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
-      </div>
-
-      <div class="mt-4 text-sm text-gray-500 sm:mt-0">
-        <%= link_to t(".forgot_password"), new_password_path, class: "text-gray-700 underline hover:no-underline" %>
-      </div>
-    </div>
-
-    <div class="mt-4 text-sm text-gray-500">
-      <%= t(".no_account") %>
-      <%= link_to t(".sign_up"), new_registration_path, class: "text-gray-700 underline hover:no-underline" %>
+  <% if flash[:alert] %>
+    <div class="mb-6 flex items-center gap-2 px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+      <%= flash[:alert] %>
     </div>
   <% end %>
+
+  <% if flash[:notice] %>
+    <div class="mb-6 flex items-center gap-2 px-4 py-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <%= form_with url: session_url, class: "space-y-4" do |form| %>
+    <div>
+      <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: t(".email_placeholder"), value: params[:email_address], class: "w-full px-4 py-2.5 bg-surface-1 border border-border rounded-lg text-white placeholder-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" %>
+    </div>
+
+    <div>
+      <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder"), maxlength: 72, class: "w-full px-4 py-2.5 bg-surface-1 border border-border rounded-lg text-white placeholder-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors" %>
+    </div>
+
+    <div class="flex items-center justify-between text-sm">
+      <%= link_to t(".forgot_password"), new_password_path, class: "text-subtle hover:text-white transition-colors" %>
+    </div>
+
+    <%= form.submit t(".submit"), class: "w-full px-4 py-2.5 bg-accent hover:bg-accent-light text-white font-medium rounded-lg transition-colors cursor-pointer" %>
+  <% end %>
+
+  <p class="mt-8 text-center text-sm text-muted">
+    <%= t(".no_account") %>
+    <%= link_to t(".sign_up"), new_registration_path, class: "text-accent hover:text-accent-light transition-colors" %>
+  </p>
 </div>

@@ -1,46 +1,41 @@
-<div class="w-full">
-  <div class="flex justify-between items-center mb-6">
-    <h1 class="font-bold text-4xl"><%= t(".title") %></h1>
-    <%= link_to habits_path, class: "text-gray-600 hover:text-gray-900" do %>
-      &larr; <%= t(".back_to_habits") %>
-    <% end %>
+<div class="space-y-8">
+  <div>
+    <h1 class="text-2xl font-semibold tracking-tight"><%= t(".title") %></h1>
+    <p class="text-subtle text-sm mt-1"><%= t(".subtitle") %></p>
   </div>
 
   <% if @habits.any? %>
-    <section class="mb-8">
-      <h2 class="font-semibold text-2xl mb-4"><%= t(".overview") %></h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-white rounded-lg shadow p-6 text-center">
-          <p class="text-gray-500 text-sm"><%= t(".total_habits") %></p>
-          <p class="text-4xl font-bold text-blue-600"><%= @total_habits %></p>
-        </div>
-        <div class="bg-white rounded-lg shadow p-6 text-center">
-          <p class="text-gray-500 text-sm"><%= t(".total_completions") %></p>
-          <p class="text-4xl font-bold text-green-600"><%= @total_completions %></p>
-        </div>
-        <div class="bg-white rounded-lg shadow p-6 text-center">
-          <p class="text-gray-500 text-sm"><%= t(".best_streak") %></p>
-          <p class="text-4xl font-bold text-orange-500">
-            <%= @best_streak %>
-            <span class="text-sm font-normal text-gray-400"><%= t(".days") %></span>
-          </p>
-        </div>
+    <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="bg-surface-1 border border-border rounded-xl p-6">
+        <p class="text-subtle text-sm"><%= t(".total_habits") %></p>
+        <p class="text-3xl font-semibold mt-1"><%= @total_habits %></p>
+      </div>
+      <div class="bg-surface-1 border border-border rounded-xl p-6">
+        <p class="text-subtle text-sm"><%= t(".total_completions") %></p>
+        <p class="text-3xl font-semibold mt-1 text-emerald-400"><%= @total_completions %></p>
+      </div>
+      <div class="bg-surface-1 border border-border rounded-xl p-6">
+        <p class="text-subtle text-sm"><%= t(".best_streak") %></p>
+        <p class="text-3xl font-semibold mt-1 text-orange-400">
+          <%= @best_streak %>
+          <span class="text-base font-normal text-muted"><%= t(".days") %></span>
+        </p>
       </div>
     </section>
 
-    <% if @current_streaks.any? { |s| s[:streak] > 0 } %>
-      <section class="mb-8">
-        <h2 class="font-semibold text-2xl mb-4"><%= t(".top_streaks") %></h2>
-        <div class="bg-white rounded-lg shadow overflow-hidden">
-          <% @current_streaks.each do |item| %>
-            <% next if item[:streak].zero? %>
-            <div class="flex items-center justify-between p-4 border-b last:border-b-0">
+    <% active_streaks = @current_streaks.select { |s| s[:streak] > 0 } %>
+    <% if active_streaks.any? %>
+      <section>
+        <h2 class="text-lg font-medium mb-4"><%= t(".top_streaks") %></h2>
+        <div class="bg-surface-1 border border-border rounded-xl divide-y divide-border">
+          <% active_streaks.each do |item| %>
+            <div class="flex items-center justify-between p-4">
               <div class="flex items-center gap-3">
-                <div class="w-3 h-3 rounded-full" style="background-color: <%= item[:habit].color %>;"></div>
-                <span class="font-medium"><%= item[:habit].name %></span>
+                <div class="w-2 h-2 rounded-full" style="background-color: <%= item[:habit].color %>;"></div>
+                <span><%= item[:habit].name %></span>
               </div>
-              <span class="text-orange-500 font-semibold">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" viewBox="0 0 20 20" fill="currentColor">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm font-medium bg-orange-500/10 text-orange-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd" />
                 </svg>
                 <%= item[:streak] %> <%= t(".days") %>
@@ -52,38 +47,38 @@
     <% end %>
 
     <section>
-      <h2 class="font-semibold text-2xl mb-4"><%= t(".habit_details") %></h2>
-      <div class="bg-white rounded-lg shadow overflow-hidden">
+      <h2 class="text-lg font-medium mb-4"><%= t(".habit_details") %></h2>
+      <div class="bg-surface-1 border border-border rounded-xl overflow-hidden">
         <table class="w-full">
-          <thead class="bg-gray-50">
-            <tr>
-              <th class="px-4 py-3 text-left text-sm font-medium text-gray-500">Habit</th>
-              <th class="px-4 py-3 text-center text-sm font-medium text-gray-500"><%= t(".current_streak") %></th>
-              <th class="px-4 py-3 text-center text-sm font-medium text-gray-500"><%= t(".longest_streak") %></th>
-              <th class="px-4 py-3 text-center text-sm font-medium text-gray-500"><%= t(".completion_rate") %></th>
+          <thead>
+            <tr class="border-b border-border">
+              <th class="px-4 py-3 text-left text-sm font-medium text-subtle">Habit</th>
+              <th class="px-4 py-3 text-center text-sm font-medium text-subtle"><%= t(".current_streak") %></th>
+              <th class="px-4 py-3 text-center text-sm font-medium text-subtle"><%= t(".longest_streak") %></th>
+              <th class="px-4 py-3 text-center text-sm font-medium text-subtle"><%= t(".completion_rate") %></th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-200">
+          <tbody class="divide-y divide-border">
             <% @habits.each do |habit| %>
-              <tr>
+              <tr class="hover:bg-surface-2 transition-colors">
                 <td class="px-4 py-3">
                   <div class="flex items-center gap-3">
-                    <div class="w-3 h-3 rounded-full" style="background-color: <%= habit.color %>;"></div>
-                    <%= link_to habit.name, habit_path(habit), class: "font-medium hover:text-blue-600" %>
+                    <div class="w-2 h-2 rounded-full" style="background-color: <%= habit.color %>;"></div>
+                    <%= link_to habit.name, habit_path(habit), class: "hover:text-accent transition-colors" %>
                   </div>
                 </td>
                 <td class="px-4 py-3 text-center">
                   <% current = habit.current_streak %>
-                  <span class="<%= current > 0 ? 'text-orange-500 font-semibold' : 'text-gray-400' %>">
-                    <%= current %> <%= t(".days") %>
+                  <span class="<%= current > 0 ? 'text-orange-400' : 'text-muted' %>">
+                    <%= current %>
                   </span>
                 </td>
-                <td class="px-4 py-3 text-center">
-                  <span class="text-gray-600"><%= habit.longest_streak %> <%= t(".days") %></span>
+                <td class="px-4 py-3 text-center text-subtle">
+                  <%= habit.longest_streak %>
                 </td>
                 <td class="px-4 py-3 text-center">
                   <% rate = habit.completion_rate %>
-                  <span class="<%= rate >= 80 ? 'text-green-600' : rate >= 50 ? 'text-yellow-600' : 'text-red-500' %>">
+                  <span class="<%= rate >= 80 ? 'text-emerald-400' : rate >= 50 ? 'text-yellow-400' : 'text-red-400' %>">
                     <%= rate %>%
                   </span>
                 </td>
@@ -94,6 +89,8 @@
       </div>
     </section>
   <% else %>
-    <p class="text-gray-500"><%= t(".no_habits") %></p>
+    <div class="text-center py-16 px-4">
+      <p class="text-muted"><%= t(".no_habits") %></p>
+    </div>
   <% end %>
 </div>
