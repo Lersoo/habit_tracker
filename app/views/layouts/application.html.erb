@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
   <head>
     <title><%= content_for(:title) || "Habit Tracker" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -11,21 +11,68 @@
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+  <body class="h-full bg-surface-0 text-zinc-100 antialiased">
+    <% if authenticated? %>
+      <div class="min-h-full">
+        <nav class="border-b border-border">
+          <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-14 items-center justify-between">
+              <div class="flex items-center gap-8">
+                <%= link_to root_path, class: "flex items-center gap-2 text-zinc-100 hover:text-white" do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-accent" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 011.925-3.545 3.75 3.75 0 013.255 3.717z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="font-semibold tracking-tight"><%= t("app_name") %></span>
+                <% end %>
+
+                <div class="hidden sm:flex items-center gap-1">
+                  <%= link_to t("nav.habits"), habits_path, class: "px-3 py-1.5 text-sm rounded-md #{current_page?(habits_path) ? 'bg-surface-2 text-white' : 'text-subtle hover:text-white hover:bg-surface-2'}" %>
+                  <%= link_to t("nav.statistics"), statistics_path, class: "px-3 py-1.5 text-sm rounded-md #{current_page?(statistics_path) ? 'bg-surface-2 text-white' : 'text-subtle hover:text-white hover:bg-surface-2'}" %>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <span class="text-sm text-muted hidden sm:block"><%= Current.user.email_address %></span>
+                <%= button_to t("nav.sign_out"), session_path, method: :delete, class: "text-sm text-subtle hover:text-white" %>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <main class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8">
+          <% if flash[:notice] %>
+            <div class="mb-6 flex items-center gap-2 px-4 py-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <%= flash[:notice] %>
+            </div>
+          <% end %>
+
+          <% if flash[:alert] %>
+            <div class="mb-6 flex items-center gap-2 px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg>
+              <%= flash[:alert] %>
+            </div>
+          <% end %>
+
+          <%= yield %>
+        </main>
+      </div>
+    <% else %>
+      <main class="min-h-full flex items-center justify-center px-4 py-12">
+        <%= yield %>
+      </main>
+    <% end %>
   </body>
 </html>

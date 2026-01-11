@@ -1,0 +1,66 @@
+<div class="max-w-2xl space-y-6">
+  <div class="flex items-start justify-between">
+    <div class="flex items-center gap-4">
+      <div class="w-1.5 h-12 rounded-full" style="background-color: <%= @habit.color %>;"></div>
+      <div>
+        <h1 class="text-2xl font-semibold tracking-tight"><%= @habit.name %></h1>
+        <p class="text-subtle text-sm mt-0.5"><%= Habit.human_attribute_name("frequency.#{@habit.frequency}") %></p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <%= link_to edit_habit_path(@habit), class: "px-3 py-1.5 text-sm text-subtle hover:text-white hover:bg-surface-2 rounded-lg transition-colors" do %>
+        <%= t(".edit") %>
+      <% end %>
+      <% if @habit.archived? %>
+        <%= button_to unarchive_habit_path(@habit), method: :patch, class: "px-3 py-1.5 text-sm text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-colors" do %>
+          <%= t(".unarchive") %>
+        <% end %>
+      <% else %>
+        <%= button_to archive_habit_path(@habit), method: :patch, class: "px-3 py-1.5 text-sm text-yellow-400 hover:bg-yellow-500/10 rounded-lg transition-colors" do %>
+          <%= t(".archive") %>
+        <% end %>
+      <% end %>
+      <%= button_to habit_path(@habit), method: :delete, data: { turbo_confirm: t(".delete_confirm") }, class: "px-3 py-1.5 text-sm text-red-400 hover:bg-red-500/10 rounded-lg transition-colors" do %>
+        <%= t(".delete") %>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @habit.description.present? %>
+    <div class="bg-surface-1 border border-border rounded-xl p-4">
+      <p class="text-subtle"><%= @habit.description %></p>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-3 gap-4">
+    <div class="bg-surface-1 border border-border rounded-xl p-4">
+      <p class="text-subtle text-sm"><%= t(".current_streak") %></p>
+      <p class="text-2xl font-semibold mt-1 <%= @habit.current_streak > 0 ? 'text-orange-400' : 'text-muted' %>">
+        <%= @habit.current_streak %>
+        <span class="text-sm font-normal text-muted"><%= t(".days") %></span>
+      </p>
+    </div>
+    <div class="bg-surface-1 border border-border rounded-xl p-4">
+      <p class="text-subtle text-sm"><%= t(".longest_streak") %></p>
+      <p class="text-2xl font-semibold mt-1">
+        <%= @habit.longest_streak %>
+        <span class="text-sm font-normal text-muted"><%= t(".days") %></span>
+      </p>
+    </div>
+    <div class="bg-surface-1 border border-border rounded-xl p-4">
+      <p class="text-subtle text-sm"><%= t(".completion_rate") %></p>
+      <% rate = @habit.completion_rate %>
+      <p class="text-2xl font-semibold mt-1 <%= rate >= 80 ? 'text-emerald-400' : rate >= 50 ? 'text-yellow-400' : 'text-red-400' %>">
+        <%= rate %>%
+      </p>
+    </div>
+  </div>
+
+  <%= link_to habits_path, class: "inline-flex items-center gap-1 text-sm text-subtle hover:text-white transition-colors" do %>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+    </svg>
+    <%= t(".back_to_habits") %>
+  <% end %>
+</div>

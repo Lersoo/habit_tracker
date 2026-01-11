@@ -1,0 +1,43 @@
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight"><%= t(".title") %></h1>
+      <p class="text-subtle text-sm mt-1"><%= t(".subtitle") %></p>
+    </div>
+    <%= link_to habits_path, class: "inline-flex items-center gap-1 text-sm text-subtle hover:text-white transition-colors" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+      </svg>
+      <%= t(".back_to_active") %>
+    <% end %>
+  </div>
+
+  <% if @habits.any? %>
+    <div class="space-y-2">
+      <% @habits.each do |habit| %>
+        <div class="flex items-center justify-between p-4 bg-surface-1 border border-border rounded-xl opacity-75">
+          <div class="flex items-center gap-4">
+            <div class="w-1 h-10 rounded-full opacity-50" style="background-color: <%= habit.color %>;"></div>
+            <div>
+              <h3 class="font-medium text-subtle"><%= habit.name %></h3>
+              <p class="text-sm text-muted mt-0.5"><%= Habit.human_attribute_name("frequency.#{habit.frequency}") %></p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <%= button_to unarchive_habit_path(habit), method: :patch, class: "px-3 py-1.5 text-sm text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-colors" do %>
+              <%= t(".restore") %>
+            <% end %>
+            <%= button_to habit_path(habit), method: :delete, data: { turbo_confirm: t(".delete_confirm") }, class: "px-3 py-1.5 text-sm text-red-400 hover:bg-red-500/10 rounded-lg transition-colors" do %>
+              <%= t(".delete") %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-16 px-4">
+      <p class="text-muted"><%= t(".no_habits") %></p>
+    </div>
+  <% end %>
+</div>

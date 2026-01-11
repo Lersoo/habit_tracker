@@ -65,8 +65,19 @@ Habits list uses Turbo Frames for seamless check-in updates:
 ### I18n
 All user-facing strings are in `config/locales/en.yml`. Use `t(".key")` in views.
 
-### Streaks
-Streak calculation is done in `Habit#current_streak` and `Habit#longest_streak` methods.
+### Habit Model
+Key methods in `Habit`:
+- `current_streak` / `longest_streak` - Streak calculations
+- `completion_rate(days: 30)` - Percentage completion over a period
+- `completed_on?(date)` / `skipped_on?(date)` - Check status for a date
+- `active` / `archived` scopes - Filter by archive status
+- `archive` / `unarchive` actions available on habits
+
+### Statistics Page
+`/statistics` displays aggregated metrics:
+- Total habits, completions, best streak
+- Top current streaks leaderboard
+- Per-habit completion rates and streak data
 
 ## Code Style
 

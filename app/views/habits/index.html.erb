@@ -1,0 +1,35 @@
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight"><%= t(".title") %></h1>
+      <p class="text-subtle text-sm mt-1"><%= t(".subtitle") %></p>
+    </div>
+    <%= link_to new_habit_path, class: "inline-flex items-center gap-2 px-4 py-2 bg-accent hover:bg-accent-light text-white text-sm font-medium rounded-lg transition-colors" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+      </svg>
+      <%= t(".new_habit") %>
+    <% end %>
+  </div>
+
+  <% if @habits.any? %>
+    <div class="space-y-2">
+      <% @habits.each do |habit| %>
+        <%= render "habit", habit: habit %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-16 px-4">
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-surface-2 mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+        </svg>
+      </div>
+      <h3 class="text-lg font-medium mb-1"><%= t(".empty_title") %></h3>
+      <p class="text-subtle text-sm mb-6"><%= t(".empty_description") %></p>
+      <%= link_to new_habit_path, class: "inline-flex items-center gap-2 px-4 py-2 bg-accent hover:bg-accent-light text-white text-sm font-medium rounded-lg transition-colors" do %>
+        <%= t(".create_first") %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
