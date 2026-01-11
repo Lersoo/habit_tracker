@@ -1,0 +1,31 @@
+<% if completion&.completed? %>
+  <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+    </svg>
+    <%= t("shared.check_in.completed") %>
+  </span>
+  <%= button_to habit_completions_path(habit, date: date), method: :delete, class: "text-gray-400 hover:text-gray-600 text-sm underline" do %>
+    <%= t("shared.check_in.undo") %>
+  <% end %>
+<% elsif completion&.skipped? %>
+  <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+    </svg>
+    <%= t("shared.check_in.skipped") %>
+  </span>
+  <%= button_to habit_completions_path(habit, date: date), method: :delete, class: "text-gray-400 hover:text-gray-600 text-sm underline" do %>
+    <%= t("shared.check_in.undo") %>
+  <% end %>
+<% else %>
+  <%= button_to habit_completions_path(habit, date: date, status: :completed), class: "inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-green-600 hover:bg-green-500 text-white" do %>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+    </svg>
+    <%= t("shared.check_in.complete") %>
+  <% end %>
+  <%= button_to habit_completions_path(habit, date: date, status: :skipped), class: "inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-gray-200 hover:bg-gray-300 text-gray-700" do %>
+    <%= t("shared.check_in.skip") %>
+  <% end %>
+<% end %>

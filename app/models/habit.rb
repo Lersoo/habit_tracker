@@ -10,4 +10,20 @@ class Habit < ApplicationRecord
 
   scope :active, -> { where(archived: false) }
   scope :archived, -> { where(archived: true) }
+
+  def completion_for(date)
+    completions.find_by(completed_on: date)
+  end
+
+  def completed_on?(date)
+    completion_for(date)&.completed?
+  end
+
+  def skipped_on?(date)
+    completion_for(date)&.skipped?
+  end
+
+  def status_for(date)
+    completion_for(date)&.status
+  end
 end

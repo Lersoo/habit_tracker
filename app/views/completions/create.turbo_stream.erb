@@ -1,0 +1,3 @@
+<%= turbo_stream.replace dom_id(@habit) do %>
+  <%= render "habits/habit", habit: @habit %>
+<% end %>

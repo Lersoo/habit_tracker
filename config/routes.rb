@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
 
   resources :habits do
+    resources :completions, only: %i[create destroy]
     member do
       patch :archive
       patch :unarchive

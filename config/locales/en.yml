@@ -90,6 +90,16 @@ en:
       success: "Habit archived successfully."
     unarchive:
       success: "Habit unarchived successfully."
+  completions:
+    create:
+      error: "Could not save completion."
+  shared:
+    check_in:
+      complete: "Complete"
+      skip: "Skip"
+      undo: "Undo"
+      completed: "Done"
+      skipped: "Skipped"
   activerecord:
     attributes:
       habit:
