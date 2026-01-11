@@ -53,6 +53,7 @@ en:
       title: "My Habits"
       new_habit: "New Habit"
       view_archived: "View Archived"
+      statistics: "Statistics"
       no_habits: "No habits yet. Create your first habit to get started!"
     habit:
       streak:
@@ -97,6 +98,21 @@ en:
   completions:
     create:
       error: "Could not save completion."
+  statistics:
+    index:
+      title: "Statistics"
+      overview: "Overview"
+      total_habits: "Total Active Habits"
+      total_completions: "Total Completions"
+      best_streak: "Best Streak Ever"
+      days: "days"
+      top_streaks: "Current Top Streaks"
+      no_habits: "No habits to show statistics for."
+      habit_details: "Habit Details"
+      current_streak: "Current Streak"
+      longest_streak: "Longest Streak"
+      completion_rate: "30-Day Rate"
+      back_to_habits: "Back to habits"
   shared:
     check_in:
       complete: "Complete"
