@@ -54,6 +54,10 @@ en:
       new_habit: "New Habit"
       view_archived: "View Archived"
       no_habits: "No habits yet. Create your first habit to get started!"
+    habit:
+      streak:
+        one: "%{count} day streak"
+        other: "%{count} day streak"
     archived:
       title: "Archived Habits"
       back_to_active: "Back to Active"
