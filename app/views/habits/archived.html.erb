@@ -1,0 +1,20 @@
+<div class="w-full">
+  <% if notice = flash[:notice] %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="font-bold text-4xl"><%= t(".title") %></h1>
+    <%= link_to t(".back_to_active"), habits_path, class: "text-gray-600 hover:text-gray-900 underline" %>
+  </div>
+
+  <% if @habits.any? %>
+    <div class="grid gap-4">
+      <% @habits.each do |habit| %>
+        <%= render "habit", habit: habit %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-gray-500"><%= t(".no_habits") %></p>
+  <% end %>
+</div>

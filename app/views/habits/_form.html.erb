@@ -1,0 +1,37 @@
+<%= form_with model: habit, class: "contents" do |form| %>
+  <% if habit.errors.any? %>
+    <div class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mb-4">
+      <h2><%= t("errors.template.header", count: habit.errors.count, model: Habit.model_name.human.downcase) %></h2>
+      <ul class="list-disc list-inside">
+        <% habit.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-4">
+    <%= form.label :name, t("habits.form.name_label"), class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= form.text_field :name, placeholder: t("habits.form.name_placeholder"), required: true, autofocus: true, class: "block w-full shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :description, t("habits.form.description_label"), class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= form.text_area :description, placeholder: t("habits.form.description_placeholder"), rows: 3, class: "block w-full shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :frequency, t("habits.form.frequency_label"), class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= form.select :frequency, Habit.frequencies.keys.map { |f| [Habit.human_attribute_name("frequency.#{f}"), f] }, {}, class: "block w-full shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :color, t("habits.form.color_label"), class: "block text-sm font-medium text-gray-700 mb-1" %>
+    <%= form.color_field :color, class: "h-10 w-20 rounded-md border border-gray-400 cursor-pointer" %>
+  </div>
+
+  <div class="flex items-center gap-4">
+    <%= form.submit habit.persisted? ? t("habits.form.submit_update") : t("habits.form.submit_create"), class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium cursor-pointer" %>
+    <%= link_to t("habits.form.cancel"), habits_path, class: "text-gray-600 hover:text-gray-900 underline" %>
+  </div>
+<% end %>

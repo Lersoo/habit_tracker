@@ -1,0 +1,33 @@
+<div class="w-full max-w-2xl mx-auto">
+  <% if notice = flash[:notice] %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block"><%= notice %></p>
+  <% end %>
+
+  <div class="bg-white rounded-lg shadow p-6 border-l-4" style="border-left-color: <%= @habit.color %>;">
+    <div class="flex justify-between items-start mb-4">
+      <div>
+        <h1 class="font-bold text-3xl"><%= @habit.name %></h1>
+        <p class="text-gray-400 text-sm mt-1"><%= Habit.human_attribute_name("frequency.#{@habit.frequency}") %></p>
+      </div>
+      <div class="flex gap-2">
+        <%= link_to t(".edit"), edit_habit_path(@habit), class: "text-blue-600 hover:text-blue-800 underline" %>
+        <% if @habit.archived? %>
+          <%= button_to t(".unarchive"), unarchive_habit_path(@habit), method: :patch, class: "text-green-600 hover:text-green-800 underline" %>
+        <% else %>
+          <%= button_to t(".archive"), archive_habit_path(@habit), method: :patch, class: "text-yellow-600 hover:text-yellow-800 underline" %>
+        <% end %>
+        <%= button_to t(".delete"), habit_path(@habit), method: :delete, data: { turbo_confirm: t(".delete_confirm") }, class: "text-red-600 hover:text-red-800 underline" %>
+      </div>
+    </div>
+
+    <% if @habit.description.present? %>
+      <p class="text-gray-600 mb-4"><%= @habit.description %></p>
+    <% end %>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to habits_path, class: "text-gray-600 hover:text-gray-900" do %>
+      &larr; <%= t(".back_to_habits") %>
+    <% end %>
+  </div>
+</div>

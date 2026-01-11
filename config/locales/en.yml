@@ -48,3 +48,53 @@ en:
       sign_in: "Sign in"
     create:
       success: "Welcome! Your account has been created."
+  habits:
+    index:
+      title: "My Habits"
+      new_habit: "New Habit"
+      view_archived: "View Archived"
+      no_habits: "No habits yet. Create your first habit to get started!"
+    archived:
+      title: "Archived Habits"
+      back_to_active: "Back to Active"
+      no_habits: "No archived habits."
+    new:
+      title: "New Habit"
+    edit:
+      title: "Edit Habit"
+    show:
+      title: "Habit Details"
+      edit: "Edit"
+      archive: "Archive"
+      unarchive: "Unarchive"
+      delete: "Delete"
+      delete_confirm: "Are you sure you want to delete this habit? This will also delete all completion history."
+      back_to_habits: "Back to habits"
+    form:
+      name_label: "Name"
+      name_placeholder: "e.g., Exercise, Meditate, Read"
+      description_label: "Description (optional)"
+      description_placeholder: "Add notes about this habit..."
+      frequency_label: "Frequency"
+      color_label: "Color"
+      submit_create: "Create Habit"
+      submit_update: "Update Habit"
+      cancel: "Cancel"
+    create:
+      success: "Habit created successfully."
+    update:
+      success: "Habit updated successfully."
+    destroy:
+      success: "Habit deleted successfully."
+    archive:
+      success: "Habit archived successfully."
+    unarchive:
+      success: "Habit unarchived successfully."
+  activerecord:
+    attributes:
+      habit:
+        frequency:
+          daily: "Daily"
+          weekdays: "Weekdays"
+          weekends: "Weekends"
+          custom: "Custom"
