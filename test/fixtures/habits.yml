@@ -1,17 +1,39 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
+exercise:
   user: one
-  name: MyString
-  description: MyText
-  frequency: 1
-  color: MyString
+  name: Exercise
+  description: Daily workout routine
+  frequency: 0
+  color: "#ef4444"
   archived: false
 
-two:
-  user: two
-  name: MyString
-  description: MyText
+meditation:
+  user: one
+  name: Meditation
+  description: Morning meditation
+  frequency: 0
+  color: "#8b5cf6"
+  archived: false
+
+reading:
+  user: one
+  name: Reading
+  description: Read for 30 minutes
   frequency: 1
-  color: MyString
+  color: "#06b6d4"
+  archived: false
+
+archived_habit:
+  user: one
+  name: Old Habit
+  description: An archived habit
+  frequency: 0
+  color: "#f59e0b"
+  archived: true
+
+other_user_habit:
+  user: two
+  name: Other User Habit
+  description: Belongs to another user
+  frequency: 0
+  color: "#10b981"
   archived: false

@@ -1,13 +1,24 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+exercise_today:
+  habit: exercise
+  completed_on: <%= Date.current %>
+  status: 0
 
-one:
-  habit: one
-  completed_on: 2026-01-11
-  status: 1
-  note: MyText
+exercise_yesterday:
+  habit: exercise
+  completed_on: <%= Date.current - 1.day %>
+  status: 0
 
-two:
-  habit: two
-  completed_on: 2026-01-11
+exercise_two_days_ago:
+  habit: exercise
+  completed_on: <%= Date.current - 2.days %>
+  status: 0
+
+meditation_today:
+  habit: meditation
+  completed_on: <%= Date.current %>
   status: 1
-  note: MyText
+
+reading_yesterday:
+  habit: reading
+  completed_on: <%= Date.current - 1.day %>
+  status: 0

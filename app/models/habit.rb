@@ -2,7 +2,7 @@ class Habit < ApplicationRecord
   belongs_to :user
   has_many :completions, class_name: "HabitCompletion", dependent: :destroy
 
-  enum :frequency, { daily: 0, weekdays: 1, weekends: 2, custom: 3 }
+  enum :frequency, {daily: 0, weekdays: 1, weekends: 2, custom: 3}
 
   validates :name, presence: true
   validates :frequency, presence: true
@@ -52,7 +52,7 @@ class Habit < ApplicationRecord
     completed_dates.each_cons(2) do |prev_date, curr_date|
       if curr_date - prev_date == 1
         current_streak += 1
-        max_streak = [ max_streak, current_streak ].max
+        max_streak = [max_streak, current_streak].max
       else
         current_streak = 1
       end
